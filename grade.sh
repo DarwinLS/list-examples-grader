@@ -28,12 +28,12 @@ then
 fi
 
 java -cp $CPATH org.junit.runner.JUnitCore TestListExamples > test-output.txt
-grep -oP '(?<=Failures: )\d+' test-output.txt
+fails=`grep -oP '(?<=Failures: )\d+' test-output.txt`
 
 possibleScore=3
-if [[ grep -q "Failures" test-output.txt ]]
-then 
-    result=$((possibleScore - $(echo grep -oP '(?<=Failures: )\d+' test-output.txt)))
+if grep -q "Failures" test-output.txt;
+then
+    result=$(($possibleScore-$fails))
     echo "Your score: $result/3"
 fi
 # Draw a picture/take notes on the directory structure that's set up after
